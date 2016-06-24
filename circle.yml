@@ -1,0 +1,30 @@
+machine:
+  node:
+    version: 6.1.0
+
+dependencies:
+  override:
+    - npm install
+    - npm run build
+
+test:
+  override:
+    - npm test
+
+deployment:
+  npm:
+    branch: master
+    commands:
+      # monitor dependencies security with Snyk
+      - npm run snyk:monitor
+
+      # tag release in Github
+      - VERSION=$(node -p -e "require('./package.json').version") && git tag --force v${VERSION} && git push --tags
+
+      # create release in Github
+      - npm install -g conventional-github-releaser
+      - conventional-github-releaser -p angular
+
+      # publish to npm
+      - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - npm publish
