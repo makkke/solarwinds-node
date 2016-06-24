@@ -40,3 +40,4 @@ project.sublime-workspace
 lib
 bin
 test-results.xml
+playground.js
