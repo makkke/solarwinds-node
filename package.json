@@ -10,7 +10,7 @@
     "start:dev": "babel-node ./test/playground.js",
     "start:dev:cli": "babel-node ./src/cli.js",
     "build": "babel src/ --out-dir lib/",
-    "test": "snyk test && ava ./tests/*.spec.js",
+    "test": "snyk test && ava",
     "test:unit": "ava",
     "snyk:monitor": "snyk auth $SNYK_TOKEN && snyk monitor"
   },
