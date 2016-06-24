@@ -23,10 +23,15 @@ program
 program
   .command('unmanage <id>')
   .description('unmanage node by id of hostname')
-  .option('-d, --duration [interval]', 'duration like 30m, 3h or 1d (default is 5m)')
+  .option('-d, --duration <interval>', 'duration, for example 15s, 30m, 3h or 1d')
   .action(async (id, options) => {
+    const { duration } = options
+    if (typeof duration === 'undefined') {
+      console.error('duration is required')
+      process.exit(1)
+    }
+
     const node = isNaN(id) ? await solarwinds.nodes.findByName(id) : await solarwinds.nodes.find(id)
-    const duration = options.duration || '5m'
     const result = await solarwinds.nodes.unmanage(node.id, duration)
     console.log(result)
   })
