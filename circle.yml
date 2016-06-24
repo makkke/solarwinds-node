@@ -5,7 +5,7 @@ machine:
 dependencies:
   override:
     - npm install
-    - npm run compile
+    - npm run build
 
 test:
   override:
