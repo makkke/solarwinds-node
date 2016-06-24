@@ -1,6 +1,6 @@
 {
   "name": "solarwinds",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The Node.js library and CLI for the Solarwinds API",
   "main": "./lib/solarwinds",
   "bin": {
@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/cityofsurrey/solarwinds-node#readme",
   "dependencies": {
+    "babel-polyfill": "^6.9.1",
     "camelcase-keys": "^3.0.0",
     "commander": "^2.9.0",
     "moment": "^2.13.0",
@@ -53,7 +54,12 @@
     "babel": "inherit"
   },
   "babel": {
-    "presets": ["es2015", "stage-0"],
-    "plugins": ["transform-runtime"]
+    "presets": [
+      "es2015",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ]
   }
 }
