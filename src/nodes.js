@@ -3,8 +3,8 @@ import parse from 'parse-duration'
 import Node from './models/node'
 
 const props = [
-  'NodeId AS id', 'DisplayName', 'IPAddress', 'SysName',
-  'StatusDescription', 'UnManaged', 'Severity',
+  'NodeId AS id', 'DisplayName', 'IP', 'SysName',
+  'StatusDescription', 'UnManaged',
 ].join(', ')
 
 class Nodes {
