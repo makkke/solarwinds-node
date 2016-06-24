@@ -1,6 +1,6 @@
 {
   "name": "solarwinds",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "The Node.js library and CLI for the Solarwinds API",
   "main": "./lib/solarwinds",
   "bin": {

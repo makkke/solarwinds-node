@@ -1,6 +1,8 @@
 # SolarWinds Node.js
 
-[![CircleCI](https://circleci.com/gh/cityofsurrey/solarwinds-node.svg?style=svg&circle-token=7167ace50d0b666119d8a8f7cfc15c9313bb9232)](https://circleci.com/gh/cityofsurrey/solarwinds-node)
+[![npm version](https://badge.fury.io/js/solarwinds.svg)](https://badge.fury.io/js/solarwinds)
+[![Code Climate](https://codeclimate.com/github/cityofsurrey/solarwinds-node/badges/gpa.svg)](https://codeclimate.com/github/cityofsurrey/solarwinds-node)
+[![CircleCI](https://circleci.com/gh/cityofsurrey/solarwinds-node.svg?style=shield&circle-token=7167ace50d0b666119d8a8f7cfc15c9313bb9232)](https://circleci.com/gh/cityofsurrey/solarwinds-node)
 
 The Node.js library and CLI for the Solarwinds API.
 
@@ -26,7 +28,7 @@ $ solarwinds --help
 
     unmanage [options] <id>  unmanage node by id of hostname
 
-      -d, --duration [interval]  duration like 30m, 3h or 1d (default is 5m)
+      -d, --duration <interval>  duration, for example 15s, 30m, 3h or 1d
 
     remanage <id>            remanage node by id of hostname
 
