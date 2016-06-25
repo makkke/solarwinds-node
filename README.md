@@ -6,50 +6,116 @@
 
 The Node.js library and CLI for the Solarwinds API.
 
+## Configuration
+
+This library/cli uses the following environment variables:
+
+  - **SOLARWINDS_USERNAME** - username of SolarWinds API user.
+  - **SOLARWINDS_PASSWORD** - password of SolarWinds API user.
+  - **SOLARWINDS_URL** - url of SolarWinds API, e.g `https://solarwinds.example.com:17778`.
+
 ## Install
 
 ```console
-$ npm install --global solarwinds
+$ npm install -g solarwinds
 ```
 
-## CLI
-
-This cli uses the environment variables `SOLARWINDS_USERNAME` and `SOLARWINDS_PASSWORD` for authentication.
-
+## CLI Usage
 
 ```console
-$ solarwinds --help
+  Usage: solarwinds [options] [command]
 
-  Usage
-    solarwinds [command] [options]
 
   Commands:
-    nodes [id]               list available nodes or node by id
 
-    unmanage [options] <id>  unmanage node by id of hostname
-
-      -d, --duration <interval>  duration, for example 15s, 30m, 3h or 1d
-
-    remanage <id>            remanage node by id of hostname
+    node        Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
+    help [cmd]  display help for [cmd]
 
   Options:
+
     -h, --help     output usage information
     -V, --version  output the version number
-
-  Examples
-    solarwinds nodes
-    solarwinds unmanage devdocker02 --duration 1h
-    solarwinds remanage devdocker02
 ```
 
-## Usage
+### Nodes
 
-This library by default uses the environment variables `SOLARWINDS_USERNAME` and `SOLARWINDS_PASSWORD` that can be overwritten:
+Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
+
+```console
+  Usage: solarwinds node [options] [command]
+
+
+  Commands:
+
+    list|ls                    lists all available nodes
+    inspect <NODE>             displays detailed information about a node
+    unmanage [options] <NODE>  Unmanages a node for a duration
+    remanage <NODE>            remanage node by id of hostname
+
+  Options:
+
+    -h, --help  output usage information
+```
+
+#### node list
+
+```console
+  Usage: list|ls [options]
+
+  Lists all available nodes
+
+  Options:
+
+    -h, --help  output usage information
+```
+
+#### node inspect
+
+```console
+  Usage: inspect [options] <NODE>
+
+  Displays detailed information about a node
+
+  Options:
+
+    -h, --help  output usage information
+```
+
+#### node unmanage
+
+```console
+  Usage: unmanage [options] <NODE>
+
+  Unmanages a node for a duration
+
+  Options:
+
+    -h, --help              output usage information
+    -d, --duration <value>  duration, for example 15s, 30m, 3h or 1d
+```
+
+#### node remanage
+
+```console
+  Usage: remanage [options] <NODE>
+
+  Remanage node by id of hostname
+
+  Options:
+
+    -h, --help  output usage information
+```
+
+## Library Usage
+
+This library by default uses the environment variables specified above that can be overwritten:
 
 ```js
 import SolarWinds from 'solarwinds'
 
-const solarwinds = new SolarWinds('username', 'password')
+const solarwinds = new SolarWinds('username', 'password', 'url')
+...
+const nodes = await solarwinds.nodes.query()
 ```
 
 ## Resources
