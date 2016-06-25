@@ -60,7 +60,7 @@ Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
 #### node list
 
 ```console
-  Usage: list|ls [options]
+  Usage: solarwinds node list|ls [options]
 
   Lists all available nodes
 
@@ -72,7 +72,7 @@ Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
 #### node inspect
 
 ```console
-  Usage: inspect [options] <NODE>
+  Usage: solarwinds node inspect [options] <NODE>
 
   Displays detailed information about a node
 
@@ -84,7 +84,7 @@ Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
 #### node unmanage
 
 ```console
-  Usage: unmanage [options] <NODE>
+  Usage: solarwinds node unmanage [options] <NODE>
 
   Unmanages a node for a duration
 
@@ -97,7 +97,7 @@ Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
 #### node remanage
 
 ```console
-  Usage: remanage [options] <NODE>
+  Usage: solarwinds node remanage [options] <NODE>
 
   Remanage node by id of hostname
 
