@@ -3,6 +3,8 @@ class Node {
     Object.keys(node).forEach(key => {
       Object.assign(this, { [key]: node[key] })
     })
+
+    this.id = node.nodeID
   }
 }
 

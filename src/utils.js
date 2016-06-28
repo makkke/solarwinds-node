@@ -8,7 +8,10 @@ export function prettify(json) {
   return JSON.stringify(json, null, 2)
 }
 
-
 export function print(json) {
   console.log(prettify(json))
+}
+
+export function error(e) {
+  console.error('Error:', e)
 }
