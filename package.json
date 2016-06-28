@@ -7,8 +7,8 @@
     "solarwinds": "./lib/cli.js"
   },
   "scripts": {
-    "start:dev": "babel-node ./test/playground.js",
-    "start:dev:cli": "babel src/ --out-dir lib/ && node ./lib/cli.js",
+    "dev": "babel-node ./playground.js",
+    "dev:cli": "babel src/ --out-dir lib/ && node ./lib/cli.js",
     "build": "babel src/ --out-dir lib/",
     "test": "snyk test && ava",
     "test:unit": "ava",

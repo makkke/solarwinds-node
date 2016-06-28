@@ -10,9 +10,12 @@ The Node.js library and CLI for the Solarwinds API.
 
 This library/cli uses the following environment variables:
 
-  - **SOLARWINDS_USERNAME** - username of SolarWinds API user.
-  - **SOLARWINDS_PASSWORD** - password of SolarWinds API user.
-  - **SOLARWINDS_URL** - url of SolarWinds API, e.g `https://solarwinds.example.com:17778`.
+| Env Variable | Description |
+| ------------ | ----------- |
+| **SOLARWINDS_USERNAME** | Username of SolarWinds API user. |
+| **SOLARWINDS_PASSWORD** | Password of SolarWinds API user. |
+| **SOLARWINDS_HOSTNAME** | Name of host where SolarWinds API is installed, e.g `solarwinds.example.com` |
+| **SOLARWINDS_PORT** | Port of SolarWinds API, default is `17778`. |
 
 ## Install
 
@@ -57,12 +60,27 @@ Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
     -h, --help  output usage information
 ```
 
+#### node create
+
+```console
+  Usage: solarwinds node create [options]
+
+  Create a node
+
+  Options:
+
+    -h, --help      output usage information
+    --name <value>  Node name
+    --ip <value>    IP address
+
+```
+
 #### node list
 
 ```console
   Usage: solarwinds node list|ls [options]
 
-  Lists all available nodes
+  List all available nodes
 
   Options:
 
@@ -86,12 +104,12 @@ Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
 ```console
   Usage: solarwinds node unmanage [options] <NODE>
 
-  Unmanages a node for a duration
+  Unmanage a node for a duration
 
   Options:
 
     -h, --help              output usage information
-    -d, --duration <value>  duration, for example 15s, 30m, 3h or 1d
+    -d, --duration <value>  Duration, for example 15s, 30m, 3h or 1d
 ```
 
 #### node remanage
@@ -104,6 +122,19 @@ Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
   Options:
 
     -h, --help  output usage information
+```
+
+#### node remove
+
+```console
+  Usage: solarwinds node remove|rm [options] <NODE>
+
+  Remove node
+
+  Options:
+
+    -h, --help  output usage information
+
 ```
 
 ## Library Usage

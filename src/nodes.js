@@ -19,13 +19,9 @@ class Nodes {
   }
 
   async find(id) {
-    const res = await this.client.query(`
-      SELECT TOP 1 ${props}
-      FROM Orion.Nodes
-      WHERE NodeId = ${id}
-    `)
+    const res = await this.client.read(`Orion/Orion.Nodes/NodeID=${id}`)
 
-    return new Node(res[0])
+    return new Node(res)
   }
 
   async findByName(name) {
@@ -54,6 +50,34 @@ class Nodes {
     await this.client.invoke('Orion.Nodes/Remanage', data)
 
     return this.find(id)
+  }
+
+  async create(node) {
+    const data = {
+      EntityType: 'Orion.Nodes',
+      IPAddress: node.ip,
+      EngineID: 1,
+      DynamicIP: false,
+      ObjectSubType: 'SNMP',
+      SNMPVersion: 2,
+      SNMPPort: 161,
+      Caption: node.name,
+      Allow64BitCounters: true,
+
+      SysName: node.name,
+
+      // PollInterval: 120,
+      // RediscoveryInterval: 30,
+      // StatCollection: 10,
+    }
+
+    await this.client.create('Orion.Nodes', data)
+
+    return this.findByName(node.name)
+  }
+
+  remove(id) {
+    return this.client.delete(`Orion/Orion.Nodes/NodeID=${id}`)
   }
 }
 
