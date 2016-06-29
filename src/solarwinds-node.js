@@ -4,7 +4,7 @@ import program from 'commander'
 import is from 'is_js'
 
 import { print } from './utils'
-import SolarWinds from './solarwinds'
+import SolarWinds from './'
 
 const solarwinds = new SolarWinds()
 
