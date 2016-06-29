@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
 import program from 'commander'
-import { print, error } from './utils'
+import is from 'is_js'
+
+import { print } from './utils'
 import SolarWinds from './solarwinds'
 
 const solarwinds = new SolarWinds()
@@ -19,8 +21,8 @@ program
         ip,
       })
       print(node)
-    } catch (e) {
-      error(e)
+    } catch (err) {
+      throw new Error(err)
     }
   })
 
@@ -29,16 +31,24 @@ program
   .alias('ls')
   .description('List all available nodes')
   .action(async () => {
-    const nodes = await solarwinds.nodes.query()
-    print(nodes)
+    try {
+      const nodes = await solarwinds.nodes.query()
+      print(nodes)
+    } catch (err) {
+      throw new Error(err)
+    }
   })
 
 program
   .command('inspect <NODE>')
   .description('Display detailed information about a node')
   .action(async (id) => {
-    const node = isNaN(id) ? await solarwinds.nodes.findByName(id) : await solarwinds.nodes.find(id)
-    print(node)
+    try {
+      const node = isNaN(id) ? await solarwinds.nodes.findByName(id) : await solarwinds.nodes.find(id)
+      print(node)
+    } catch (err) {
+      throw new Error(err)
+    }
   })
 
 program
@@ -47,23 +57,30 @@ program
   .option('-d, --duration <value>', 'Duration, for example 15s, 30m, 3h or 1d')
   .action(async (id, options) => {
     const { duration } = options
-    if (typeof duration === 'undefined') {
-      console.error('duration is required')
-      process.exit(1)
+    if (is.undefined(duration)) {
+      throw new Error('Provide duration option')
     }
 
-    const node = isNaN(id) ? await solarwinds.nodes.findByName(id) : await solarwinds.nodes.find(id)
-    const result = await solarwinds.nodes.unmanage(node.id, duration)
-    print(result)
+    try {
+      const node = isNaN(id) ? await solarwinds.nodes.findByName(id) : await solarwinds.nodes.find(id)
+      const result = await solarwinds.nodes.unmanage(node.id, duration)
+      print(result)
+    } catch (err) {
+      throw new Error(err)
+    }
   })
 
 program
   .command('remanage <NODE>')
   .description('Remanage node')
   .action(async (id) => {
-    const node = isNaN(id) ? await solarwinds.nodes.findByName(id) : await solarwinds.nodes.find(id)
-    const result = await solarwinds.nodes.remanage(node.id)
-    print(result)
+    try {
+      const node = isNaN(id) ? await solarwinds.nodes.findByName(id) : await solarwinds.nodes.find(id)
+      const result = await solarwinds.nodes.remanage(node.id)
+      print(result)
+    } catch (err) {
+      throw new Error(err)
+    }
   })
 
 program
@@ -71,9 +88,13 @@ program
   .alias('rm')
   .description('Remove node')
   .action(async (id) => {
-    const node = isNaN(id) ? await solarwinds.nodes.findByName(id) : await solarwinds.nodes.find(id)
-    await solarwinds.nodes.remove(node.id)
-    print(node.id)
+    try {
+      const node = isNaN(id) ? await solarwinds.nodes.findByName(id) : await solarwinds.nodes.find(id)
+      await solarwinds.nodes.remove(node.id)
+      print(node.id)
+    } catch (err) {
+      throw new Error(err)
+    }
   })
 
 program.parse(process.argv)

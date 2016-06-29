@@ -1,4 +1,6 @@
 import request from 'request'
+import is from 'is_js'
+
 import { camelize } from './utils'
 
 class Client {
@@ -6,10 +8,20 @@ class Client {
     this.shortUrl = `https://${hostname}:${port}/SolarWinds/InformationService/V3/Json`
     this.longUrl = `${this.shortUrl}/swis://${hostname}`
     this.request = request.defaults({
-      // baseUrl: `${url}/SolarWinds/InformationService/V3/Json`,
       auth: { username, password },
       json: true,
       strictSSL: false,
+    })
+
+    this.checkCredentials()
+  }
+
+  checkCredentials() {
+    this.request.get({
+      url: `${this.shortUrl}/Query`,
+      qs: { query: 'SELECT NodeID FROM Orion.Nodes' },
+    }, (error, response, body) => {
+      if (error || is.undefined(body)) throw new Error('Invalid SolarWinds username or password')
     })
   }
 
@@ -20,6 +32,8 @@ class Client {
         qs: { query: q },
       }, (error, response, body) => {
         if (error) return reject(error)
+        if (is.undefined(body)) return reject(new Error('Invalid response from SolarWinds API'))
+
         resolve(body.results.map(x => camelize(x)))
       })
     })
@@ -32,6 +46,7 @@ class Client {
         body: data,
       }, (error, response, body) => {
         if (error) return reject(error)
+
         resolve(body)
       })
     })
