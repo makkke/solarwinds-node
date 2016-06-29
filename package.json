@@ -1,14 +1,14 @@
 {
   "name": "solarwinds",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "The Node.js library and CLI for the Solarwinds API",
-  "main": "./lib/solarwinds",
+  "main": "./lib/index.js",
   "bin": {
-    "solarwinds": "./lib/cli.js"
+    "solarwinds": "./lib/solarwinds.js"
   },
   "scripts": {
     "dev": "babel-node ./playground.js",
-    "dev:cli": "babel src/ --out-dir lib/ && node ./lib/cli.js",
+    "dev:cli": "babel src/ --out-dir lib/ && node ./lib/solarwinds.js",
     "build": "babel src/ --out-dir lib/",
     "test": "snyk test && ava",
     "test:unit": "ava",
