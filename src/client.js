@@ -19,7 +19,7 @@ class Client {
   checkCredentials() {
     this.request.get({
       url: `${this.shortUrl}/Query`,
-      qs: { query: 'SELECT NodeID FROM Orion.Nodes' },
+      qs: { query: 'SELECT TOP 1 NodeID FROM Orion.Nodes' },
     }, (error, response, body) => {
       if (error || is.undefined(body)) throw new Error('Invalid SolarWinds username or password')
     })
