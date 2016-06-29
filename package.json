@@ -1,6 +1,6 @@
 {
   "name": "solarwinds",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "The Node.js library and CLI for the Solarwinds API",
   "main": "./lib/solarwinds",
   "bin": {
@@ -31,6 +31,7 @@
     "babel-polyfill": "^6.9.1",
     "camelcase-keys": "^3.0.0",
     "commander": "^2.9.0",
+    "is_js": "^0.8.0",
     "moment": "^2.13.0",
     "parse-duration": "^0.1.1",
     "request": "^2.72.0"
