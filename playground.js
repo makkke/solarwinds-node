@@ -13,12 +13,13 @@ async function app() {
     // })
     // await solarwinds.nodes.remove(403)
     // const nodes = await solarwinds.nodes.query()
+    const appTemplates = await solarwinds.applicationTemplates.query()
+    // const appTemplate = await solarwinds.applicationTemplates.find(94)
+    const appTemplate = await solarwinds.applicationTemplates.findByName('COS Linux Basic Processes')
     // const nodes = await solarwinds.nodes.remanage(403)
     // const node = await solarwinds.nodes.find(403)
     // node.unmanage(1)
-    console.log(vms.length)
-    console.log('----------------------------------------------------')
-    console.log(find)
+    console.log(appTemplate)
   } catch (err) {
     console.error(err)
   }

@@ -3,7 +3,7 @@
 import program from 'commander'
 import is from 'is_js'
 
-import { print } from './utils'
+import { print, error } from './utils'
 import SolarWinds from './'
 
 const solarwinds = new SolarWinds()
@@ -12,17 +12,16 @@ program
   .command('create')
   .description('Create a node')
   .option('--name <value>', 'Node name')
+  .option('--hostname <value>', 'Node host name for polling. Has to be resolvable by DNS')
+  .option('--community [value]', 'Community string (default \'\')')
   .option('--ip <value>', 'IP address')
   .action(async (options) => {
     try {
-      const { name, ip } = options
-      const node = await solarwinds.nodes.create({
-        name,
-        ip,
-      })
+      const node = await solarwinds.nodes.create(options)
       print(node)
     } catch (err) {
-      throw new Error(err)
+      error(err)
+      process.exit(1)
     }
   })
 
@@ -35,7 +34,8 @@ program
       const nodes = await solarwinds.nodes.query()
       print(nodes)
     } catch (err) {
-      throw new Error(err)
+      error(err)
+      process.exit(1)
     }
   })
 
@@ -47,14 +47,15 @@ program
       const node = isNaN(id) ? await solarwinds.nodes.findByName(id) : await solarwinds.nodes.find(id)
       print(node)
     } catch (err) {
-      throw new Error(err)
+      error(err)
+      process.exit(1)
     }
   })
 
 program
   .command('unmanage <NODE>')
   .description('Unmanage a node for a duration')
-  .option('-d, --duration <value>', 'Duration, for example 15s, 30m, 3h or 1d')
+  .option('--duration <value>', 'Duration, for example 15s, 30m, 3h or 1d')
   .action(async (id, options) => {
     const { duration } = options
     if (is.undefined(duration)) {
@@ -66,7 +67,8 @@ program
       const result = await solarwinds.nodes.unmanage(node.id, duration)
       print(result)
     } catch (err) {
-      throw new Error(err)
+      error(err)
+      process.exit(1)
     }
   })
 
@@ -79,7 +81,8 @@ program
       const result = await solarwinds.nodes.remanage(node.id)
       print(result)
     } catch (err) {
-      throw new Error(err)
+      error(err)
+      process.exit(1)
     }
   })
 
@@ -93,7 +96,8 @@ program
       await solarwinds.nodes.remove(node.id)
       print(node.id)
     } catch (err) {
-      throw new Error(err)
+      error(err)
+      process.exit(1)
     }
   })
 

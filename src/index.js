@@ -3,6 +3,7 @@ import is from 'is_js'
 import Client from './client'
 import Nodes from './nodes'
 import VirtualMachines from './virtualMachines'
+import ApplicationTemplates from './applicationTemplates'
 
 /* eslint-disable */
 if (!global._babelPolyfill) {
@@ -29,6 +30,7 @@ class Landscape {
 
     this.nodes = new Nodes(this.client)
     this.virtualMachines = new VirtualMachines(this.client)
+    this.applicationTemplates = new ApplicationTemplates(this.client)
   }
 }
 

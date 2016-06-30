@@ -2,17 +2,13 @@ import moment from 'moment'
 import parse from 'parse-duration'
 import Node from './models/node'
 
-const props = [
-  'NodeID', 'DisplayName', 'IP', 'SysName',
-  'StatusDescription', 'UnManaged',
-].join(', ')
-
 class Nodes {
   constructor(client) {
     this.client = client
   }
 
   async query() {
+    const props = Node.props.join()
     const nodes = await this.client.query(`SELECT ${props} FROM Orion.Nodes`)
 
     return nodes.map(x => new Node(x))
@@ -25,6 +21,7 @@ class Nodes {
   }
 
   async findByName(name) {
+    const props = Node.props.join()
     const res = await this.client.query(`
       SELECT TOP 1 ${props}
       FROM Orion.Nodes
@@ -55,25 +52,32 @@ class Nodes {
   async create(node) {
     const data = {
       EntityType: 'Orion.Nodes',
-      IPAddress: node.ip,
       EngineID: 1,
+
+      // candidates for exposing as options
       DynamicIP: false,
       ObjectSubType: 'SNMP',
       SNMPVersion: 2,
-      SNMPPort: 161,
-      Caption: node.name,
+      // SNMPPort: 161, // agentPort?
       Allow64BitCounters: true,
+      PollInterval: 300,
+      RediscoveryInterval: 30,
+      StatCollection: 15,
+      External: false,
 
+      Caption: node.name, // same as DisplayName, NodeName
       SysName: node.name,
 
-      // PollInterval: 120,
-      // RediscoveryInterval: 30,
-      // StatCollection: 10,
+      DNS: node.hostname,
+
+      Community: node.community,
+
+      IPAddress: node.ip,
     }
 
     await this.client.create('Orion.Nodes', data)
 
-    return this.findByName(node.name)
+    return node.name
   }
 
   remove(id) {
