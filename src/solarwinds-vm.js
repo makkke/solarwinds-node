@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import program from 'commander'
-import is from 'is_js'
 import Table from 'easy-table'
 
 import { print, error } from './utils'
@@ -12,7 +11,7 @@ const solarwinds = new SolarWinds()
 program
   .command('list')
   .alias('ls')
-  .description('List all available vms')
+  .description('List all available virtual machines')
   .action(async () => {
     try {
       const vms = await solarwinds.virtualMachines.query()
@@ -35,7 +34,7 @@ program
 
 program
   .command('inspect <VM>')
-  .description('Display detailed information about a vm')
+  .description('Display detailed information about a virtual machine')
   .action(async (id) => {
     try {
       const vm = isNaN(id) ? await solarwinds.virtualMachines.findByName(id) : await solarwinds.virtualMachines.find(id)

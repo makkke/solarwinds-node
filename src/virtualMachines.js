@@ -1,16 +1,18 @@
 import VirtualMachine from './models/virtualMachine'
 
-const props = VirtualMachine.props.join()
 
 class VirtualMachines {
+  props = VirtualMachine.props.join()
+  table = 'Orion.VIM.VirtualMachines'
+
   constructor(client) {
     this.client = client
   }
 
   async query() {
     const vms = await this.client.query(`
-      SELECT ${props}
-      FROM Orion.VIM.VirtualMachines
+      SELECT ${this.props}
+      FROM ${this.table}
       ORDER BY VirtualMachineID
     `)
 
@@ -18,15 +20,15 @@ class VirtualMachines {
   }
 
   async find(id) {
-    const res = await this.client.read(`Orion/Orion.VIM.VirtualMachines/VirtualMachineID=${id}`)
+    const res = await this.client.read(`Orion/${this.table}/VirtualMachineID=${id}`)
 
     return new VirtualMachine(res)
   }
 
   async findByName(name) {
     const res = await this.client.query(`
-      SELECT TOP 1 ${props}
-      FROM Orion.VIM.VirtualMachines
+      SELECT TOP 1 ${this.props}
+      FROM ${this.table}
       WHERE name LIKE '%${name.toLowerCase()}%'
     `)
 

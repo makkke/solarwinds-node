@@ -8,9 +8,14 @@ class VirtualMachine {
   }
 
   os() {
-    if (this.guestFamily === 'windowsGuest') return 'Windows'
-    else if (this.guestFamily === 'linuxGuest') return 'Linux'
-    return 'Unknown'
+    switch (this.guestFamily) {
+      case 'windowsGuest':
+        return 'Windows'
+      case 'linuxGuest':
+        return 'Linux'
+      default:
+        return 'Unknown'
+    }
   }
 }
 
