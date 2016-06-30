@@ -31,8 +31,9 @@ $ npm install -g solarwinds
 
   Commands:
 
-    node        Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
-    help [cmd]  display help for [cmd]
+    node           Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
+    app-template   Application templates. `APPTEMPLATE` can be an app template **id** or a **name**.
+    help [cmd]     display help for [cmd]
 
   Options:
 
@@ -136,6 +137,49 @@ Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
 
     -h, --help  output usage information
 
+```
+
+### Application Templates
+
+Application templates. `APPTEMPLATE` can be a application template **id** or a **name**.
+
+```console
+  Usage: solarwinds app-template [options] [command]
+
+
+  Commands:
+
+    list|ls                List all application templates
+    inspect <APPTEMPLATE>  Display detailed information about an application template
+
+  Options:
+
+    -h, --help  output usage information
+
+```
+
+#### app-template list
+
+```console
+  Usage: solarwinds app-template list|ls [options]
+
+  List all application templates
+
+  Options:
+
+    -h, --help  output usage information
+```
+
+#### app-template inspect
+
+```console
+  Usage: solarwinds app-template inspect [options] <APPTEMPLATE>
+
+  Display detailed information about an application template
+
+  Options:
+
+    -h, --help  output usage information
 ```
 
 ## Library Usage
