@@ -1,4 +1,4 @@
-import SolarWinds from './src/solarwinds'
+import SolarWinds from './src'
 
 const solarwinds = new SolarWinds()
 
@@ -10,11 +10,14 @@ async function app() {
     //   ip: '10.0.8.162',
     // })
     // await solarwinds.nodes.remove(403)
-    const nodes = await solarwinds.nodes.query()
+    // const nodes = await solarwinds.nodes.query()
+    const appTemplates = await solarwinds.applicationTemplates.query()
+    // const appTemplate = await solarwinds.applicationTemplates.find(94)
+    const appTemplate = await solarwinds.applicationTemplates.findByName('COS Linux Basic Processes')
     // const nodes = await solarwinds.nodes.remanage(403)
     // const node = await solarwinds.nodes.find(403)
     // node.unmanage(1)
-    console.log(nodes)
+    console.log(appTemplate)
   } catch (err) {
     console.error(err)
   }
