@@ -32,6 +32,7 @@ class Client {
         qs: { query: q },
       }, (error, response, body) => {
         if (error) return reject(error)
+        if (response.statusCode >= 300) return reject(body)
         if (is.undefined(body)) return reject(new Error('Invalid response from SolarWinds API'))
 
         resolve(body.results.map(x => camelize(x)))
@@ -46,6 +47,7 @@ class Client {
         body: data,
       }, (error, response, body) => {
         if (error) return reject(error)
+        if (response.statusCode >= 300) return reject(body)
 
         resolve(body)
       })
@@ -70,6 +72,8 @@ class Client {
     return new Promise((resolve, reject) => {
       this.request.get(`${this.longUrl}/${route}`, (error, response, body) => {
         if (error) return reject(error)
+        if (response.statusCode >= 300) return reject(body)
+
         resolve(camelize(body))
       })
     })
@@ -79,6 +83,8 @@ class Client {
     return new Promise((resolve, reject) => {
       this.request.delete(`${this.longUrl}/${route}`, (error, response, body) => {
         if (error) return reject(error)
+        if (response.statusCode >= 300) return reject(body)
+
         resolve(body)
       })
     })

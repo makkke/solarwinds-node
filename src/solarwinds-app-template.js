@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import program from 'commander'
-import is from 'is_js'
 
 import { print, error } from './utils'
 import SolarWinds from './'
