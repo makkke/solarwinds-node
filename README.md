@@ -69,10 +69,11 @@ Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
 
   Options:
 
-    -h, --help      output usage information
-    --name <value>  Node name
-    --ip <value>    IP address
-
+    -h, --help           output usage information
+    --name <value>       Node name
+    --hostname <value>   Node host name for polling. Has to be resolvable by DNS
+    --community [value]  Community string (default '')
+    --ip <value>         IP address
 ```
 
 #### node list
