@@ -59,6 +59,8 @@ class Client {
         body: data,
       }, (error, response, body) => {
         if (error) return reject(error)
+        if (response.statusCode >= 300) return reject(body)
+
         resolve(body)
       })
     })
