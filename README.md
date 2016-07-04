@@ -247,7 +247,7 @@ Virtual machines accessible by SolarWinds. `VM` can be a vm **id** or a vm **nam
 ```console
   Usage: solarwinds vm list|ls [options]
 
-  List all available virtual
+  List all available virtual machines
 
   Options:
 
