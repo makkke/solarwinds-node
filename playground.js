@@ -1,10 +1,12 @@
 import SolarWinds from './src'
+import Table from 'easy-table'
 
 const solarwinds = new SolarWinds()
 
 async function app() {
   try {
-    // const vms = await solarwinds.virtualMachines.query()
+    const vms = await solarwinds.virtualMachines.query()
+    const find = await solarwinds.virtualMachines.find(vms[144]['virtualMachineID'])
     // const node = await solarwinds.nodes.create({
     //   name: 'DevDocker03',
     //   ip: '10.0.8.162',

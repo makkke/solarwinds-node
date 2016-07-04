@@ -32,9 +32,9 @@ $ npm install -g solarwinds
   Commands:
 
     node           Nodes monitored by SolarWinds.
+    vm             Virtual machines accessible by SolarWinds.
     app-template   Application templates.
     credential     Credentials.
-    help [cmd]     display help for [cmd]
 
   Options:
 
@@ -223,6 +223,47 @@ Credentials. `CREDENTIAL` can be a credential **id** or a **name**.
   Options:
 
     -h, --help  output usage information
+```
+
+### Virtual Machines
+
+Virtual machines accessible by SolarWinds. `VM` can be a vm **id** or a vm **name**.
+
+```console
+  Usage: solarwinds vm [options] [command]
+
+  Commands:
+
+  list|ls       List all available virtual machines
+  inspect <VM>  Display detailed information about a virtual machine
+
+  Options:
+
+  -h, --help  output usage information
+```
+
+#### vm list
+
+```console
+  Usage: solarwinds vm list|ls [options]
+
+  List all available virtual
+
+  Options:
+
+    -h, --help  output usage information
+```
+
+#### vm inspect
+
+```console
+  Usage: solarwinds vm inspect [options] <VM>
+
+  Display detailed information about a virtual machine
+
+  Options:
+
+  -h, --help  output usage information
 ```
 
 ## Library Usage
