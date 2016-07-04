@@ -13,13 +13,15 @@ async function app() {
     // })
     // await solarwinds.nodes.remove(403)
     // const nodes = await solarwinds.nodes.query()
-    const appTemplates = await solarwinds.applicationTemplates.query()
+    // const appTemplates = await solarwinds.applicationTemplates.query()
+    // const credentials = await solarwinds.credentials.query()
+    const credential = await solarwinds.credentials.findByName('wb2')
     // const appTemplate = await solarwinds.applicationTemplates.find(94)
-    const appTemplate = await solarwinds.applicationTemplates.findByName('COS Linux Basic Processes')
+    // const appTemplate = await solarwinds.applicationTemplates.findByName('COS Linux Basic Processes')
     // const nodes = await solarwinds.nodes.remanage(403)
     // const node = await solarwinds.nodes.find(403)
     // node.unmanage(1)
-    console.log(appTemplate)
+    console.log(credential)
   } catch (err) {
     console.error(err)
   }

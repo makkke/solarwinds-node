@@ -31,10 +31,10 @@ $ npm install -g solarwinds
 
   Commands:
 
-    node           Nodes monitored by SolarWinds. `NODE` can be a node id or a hostname.
-    vm             Virtual machines accessible by SolarWinds. `VM` can be a vm id or a vm name.
-    app-template   Application templates. `APPTEMPLATE` can be an app template id or a name.
-    help [cmd]     display help for [cmd]
+    node           Nodes monitored by SolarWinds.
+    vm             Virtual machines accessible by SolarWinds.
+    app-template   Application templates.
+    credential     Credentials.
 
   Options:
 
@@ -177,6 +177,48 @@ Application templates. `APPTEMPLATE` can be a application template **id** or a *
   Usage: solarwinds app-template inspect [options] <APPTEMPLATE>
 
   Display detailed information about an application template
+
+  Options:
+
+    -h, --help  output usage information
+```
+
+### Credentials
+
+Credentials. `CREDENTIAL` can be a credential **id** or a **name**.
+
+```console
+  Usage: solarwinds credential [options] [command]
+
+
+  Commands:
+
+    list|ls               List all credentials
+    inspect <CREDENTIAL>  Display detailed information about a credential
+
+  Options:
+
+    -h, --help  output usage information
+```
+
+#### credential list
+
+```console
+  Usage: solarwinds credential list|ls [options]
+
+  List all credentials
+
+  Options:
+
+    -h, --help  output usage information
+```
+
+#### credential inspect
+
+```console
+  Usage: solarwinds credential inspect [options] <CREDENTIAL>
+
+  Display detailed information about a credential
 
   Options:
 
