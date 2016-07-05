@@ -1,10 +1,8 @@
 import VirtualMachine from './models/virtualMachine'
 
-
 class VirtualMachines {
   props = VirtualMachine.props.join()
   table = 'Orion.VIM.VirtualMachines'
-
 
   constructor(client) {
     this.client = client
@@ -52,7 +50,6 @@ class VirtualMachines {
       FROM ${this.table}
       WHERE name LIKE '%${name.toLowerCase()}%'
     `)
-
 
     return new VirtualMachine(res[0])
   }

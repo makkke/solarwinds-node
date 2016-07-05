@@ -7,16 +7,16 @@ async function app() {
   try {
     // const vms = await solarwinds.virtualMachines.query()
     // const find = await solarwinds.virtualMachines.find(vms[144]['virtualMachineID'])
-    const vms = await solarwinds.virtualMachines.filterIp('1')
-    const table = new Table()
-
-    vms.forEach(vm => {
-      table.cell('ID', vm.virtualMachineID)
-      table.cell('NAME', vm.name)
-      table.cell('IP', vm.iPAddress)
-      table.cell('OS', vm.os())
-      table.newRow()
-    })
+    // const vms = await solarwinds.virtualMachines.filterIp('1')
+    // const table = new Table()
+    //
+    // vms.forEach(vm => {
+    //   table.cell('ID', vm.virtualMachineID)
+    //   table.cell('NAME', vm.name)
+    //   table.cell('IP', vm.iPAddress)
+    //   table.cell('OS', vm.os())
+    //   table.newRow()
+    // })
     // const node = await solarwinds.nodes.create({
     //   name: 'DevDocker03',
     //   ip: '10.0.8.162',
@@ -31,7 +31,7 @@ async function app() {
     // const nodes = await solarwinds.nodes.remanage(403)
     // const node = await solarwinds.nodes.find(403)
     // node.unmanage(1)
-    console.log(table.toString())
+    // console.log(table.toString())
   } catch (err) {
     console.error(err)
   }
