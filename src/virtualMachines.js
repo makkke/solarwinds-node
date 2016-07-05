@@ -12,26 +12,11 @@ class VirtualMachines {
     let vms
     if (filter) {
       if (filter.hasOwnProperty('name')) {
-        vms = await this.client.query(`
-          SELECT ${this.props}
-          FROM ${this.table}
-          WHERE name LIKE '%${filter.name.toLowerCase()}%'
-          ORDER BY name
-          `)
+        vms = await this.client.query(this.getQuery('name', filter.name.toLowerCase()))
       } else if (filter.hasOwnProperty('ip')) {
-        vms = await this.client.query(`
-          SELECT ${this.props}
-          FROM ${this.table}
-          WHERE iPAddress LIKE '%${filter.ip}%'
-          ORDER BY iPAddress
-          `)
+        vms = await this.client.query(this.getQuery('iPAddress', filter.ip))
       } else {
-        vms = await this.client.query(`
-          SELECT ${this.props}
-          FROM ${this.table}
-          WHERE virtualMachineID LIKE '%${filter.id}%'
-          ORDER BY virtualMachineID
-          `)
+        vms = await this.client.query(this.getQuery('virtualMachineID', filter.id))
       }
     } else {
       vms = await this.client.query(`
@@ -44,6 +29,13 @@ class VirtualMachines {
     return vms.map(x => new VirtualMachine(x))
   }
 
+
+  async find(id) {
+    const res = await this.client.read(`Orion/${this.table}/VirtualMachineID=${id}`)
+
+    return new VirtualMachine(res)
+  }
+
   async findByName(name) {
     const res = await this.client.query(`
       SELECT TOP 1 ${this.props}
@@ -52,6 +44,15 @@ class VirtualMachines {
     `)
 
     return new VirtualMachine(res[0])
+  }
+
+  getQuery(key, value) {
+    return `
+      SELECT ${this.props}
+      FROM ${this.table}
+      WHERE ${key} LIKE '%${value}%'
+      ORDER BY ${key}
+      `
   }
 }
 
