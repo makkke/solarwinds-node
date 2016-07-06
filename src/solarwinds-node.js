@@ -2,6 +2,7 @@
 
 import program from 'commander'
 import is from 'is_js'
+import Table from 'easy-table'
 
 import { print, error } from './utils'
 import SolarWinds from './'
@@ -28,11 +29,28 @@ program
 program
   .command('list')
   .alias('ls')
+  .option('--filter <filter>', 'Filter by key, for example Name, Hostname, IP or ID')
   .description('List all available nodes')
-  .action(async () => {
+  .action(async (options) => {
     try {
-      const nodes = await solarwinds.nodes.query()
-      print(nodes)
+      let filter
+      if (options.filter) {
+        const [key, value] = options.filter.split('=')
+        filter = { [key]: value }
+      }
+
+      const vms = await solarwinds.nodes.query(filter)
+
+      const table = new Table()
+      vms.forEach(vm => {
+        table.cell('ID', vm.nodeID)
+        table.cell('NAME', vm.name)
+        table.cell('IP', vm.iPAddress)
+        table.cell('HOSTNAME', vm.dns)
+        table.newRow()
+      })
+
+      console.log(table.toString()) // eslint-disable-line
     } catch (err) {
       error(err)
       process.exit(1)

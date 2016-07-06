@@ -3,13 +3,30 @@ import parse from 'parse-duration'
 import Node from './models/node'
 
 class Nodes {
+  props = Node.props.join()
+
   constructor(client) {
     this.client = client
   }
 
-  async query() {
-    const props = Node.props.join()
-    const nodes = await this.client.query(`SELECT ${props} FROM Orion.Nodes`)
+  async query(filter) {
+    let nodes
+    if (filter) {
+      if (filter.hasOwnProperty('name')) {
+        nodes = await this.client.query(this.getQuery('sysName', filter.name.toLowerCase()))
+      } else if (filter.hasOwnProperty('ip')) {
+        nodes = await this.client.query(this.getQuery('iPAddress', filter.ip))
+      } else if (filter.hasOwnProperty('hostname')) {
+        nodes = await this.client.query(this.getQuery('dns', filter.hostname))
+      } else {
+        nodes = await this.client.query(this.getQuery('nodeID', filter.id))
+      }
+    } else {
+      nodes = await this.client.query(`
+        SELECT ${this.props}
+        FROM Orion.Nodes
+        `)
+    }
 
     return nodes.map(x => new Node(x))
   }
@@ -82,6 +99,15 @@ class Nodes {
 
   remove(id) {
     return this.client.delete(`Orion/Orion.Nodes/NodeID=${id}`)
+  }
+
+  getQuery(key, value) {
+    return `
+      SELECT ${this.props}
+      FROM Orion.Nodes
+      WHERE ${key} LIKE '%${value}%'
+      ORDER BY ${key}
+      `
   }
 }
 
