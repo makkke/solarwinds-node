@@ -81,14 +81,13 @@ Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
 #### node list
 
 ```console
-  Usage: list|ls [options]
+  Usage: solarwinds node list|ls [options]
 
-   List all available nodes
+  List all available nodes
 
-   Options:
+  Options:
 
-     -h, --help         output usage information
-     --filter value   Filter output based on conditions provided Name,  IP or ID
+    -h, --help  output usage information
 ```
 
 #### node inspect

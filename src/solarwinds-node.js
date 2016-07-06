@@ -4,7 +4,7 @@ import program from 'commander'
 import is from 'is_js'
 import Table from 'easy-table'
 
-import { print, error } from './utils'
+import { print, error, filterOptions } from './utils'
 import SolarWinds from './'
 
 const solarwinds = new SolarWinds()
@@ -29,24 +29,19 @@ program
 program
   .command('list')
   .alias('ls')
-  .option('--filter <filter>', 'Filter by key, for example Name, Hostname, IP or ID')
+  .option('--filter <value>', 'Filter output based on conditions provided')
   .description('List all available nodes')
   .action(async (options) => {
     try {
-      let filter
-      if (options.filter) {
-        const [key, value] = options.filter.split('=')
-        filter = { [key]: value }
-      }
-
+      const filter = filterOptions(options)
       const vms = await solarwinds.nodes.query(filter)
 
       const table = new Table()
       vms.forEach(vm => {
         table.cell('ID', vm.nodeID)
         table.cell('NAME', vm.name)
-        table.cell('IP', vm.iPAddress)
         table.cell('HOSTNAME', vm.dns)
+        table.cell('IP', vm.iPAddress)
         table.newRow()
       })
 
