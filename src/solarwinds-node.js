@@ -4,7 +4,7 @@ import program from 'commander'
 import is from 'is_js'
 import Table from 'easy-table'
 
-import { print, error, filterOptions } from './utils'
+import { print, error, parseFilter } from './utils'
 import SolarWinds from './'
 
 const solarwinds = new SolarWinds()
@@ -33,7 +33,7 @@ program
   .description('List all available nodes')
   .action(async (options) => {
     try {
-      const filter = filterOptions(options)
+      const filter = parseFilter(options.filter)
       const vms = await solarwinds.nodes.query(filter)
 
       const table = new Table()
