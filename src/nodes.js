@@ -10,10 +10,10 @@ class Nodes {
   }
 
   async query(filter) {
-    let nodes
+    let nodes = []
     if (filter) {
       if (filter.hasOwnProperty('name')) {
-        nodes = await this.client.query(this.getQuery('sysName', filter.name.toLowerCase()))
+        nodes = await this.client.query(this.getQuery('caption', filter.name.toLowerCase()))
       } else if (filter.hasOwnProperty('ip')) {
         nodes = await this.client.query(this.getQuery('iPAddress', filter.ip))
       } else if (filter.hasOwnProperty('hostname')) {

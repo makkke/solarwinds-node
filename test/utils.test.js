@@ -17,9 +17,14 @@ test('camelize() should convert properties to camelcase', t => {
 })
 
 test('parseFilter() should parse filter options into property', t => {
-  const unparsedFilter = 'name=Lurtz'
-  const parsedFilter = utils.parseFilter(unparsedFilter)
+  const filter = 'name=Lurtz'
+  const parsedFilter = utils.parseFilter(filter)
 
   t.truthy(parsedFilter.hasOwnProperty('name'))
   t.is(parsedFilter.name, 'Lurtz')
+})
+
+test('parseFilter() should throw an error if filter is not parsable', t => {
+  const filter = 'nameIsLurtz'
+  t.throws(() => utils.parseFilter(filter))
 })

@@ -16,9 +16,9 @@ export function error(e) {
   console.error('Error:', e) //eslint-disable-line
 }
 
-export function ParseFilter(filter) {
-  if (filter) {
-    const [key, value] = filter.split('=')
-    return { [key]: value }
-  }
+export function parseFilter(filter) {
+  const [key, value] = filter.split('=')
+  if (!key || !value) throw new Error('Can not parse filter')
+
+  return { [key]: value }
 }
