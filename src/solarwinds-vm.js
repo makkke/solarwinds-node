@@ -4,7 +4,7 @@ import program from 'commander'
 import Table from 'easy-table'
 import is from 'is_js'
 
-import { print, error } from './utils'
+import { print, error, parseFilter } from './utils'
 import SolarWinds from './'
 
 const solarwinds = new SolarWinds()
@@ -12,16 +12,11 @@ const solarwinds = new SolarWinds()
 program
   .command('list')
   .alias('ls')
-  .option('--filter <filter>', 'Filter by key, for example Name, IP or ID')
+  .option('--filter <value>', 'Filter output based on conditions provided')
   .description('List all available virtual machines')
   .action(async (options) => {
     try {
-      let filter
-      if (options.filter) {
-        const [key, value] = options.filter.split('=')
-        filter = { [key]: value }
-      }
-
+      const filter = parseFilter(options.filter)
       const vms = await solarwinds.virtualMachines.query(filter)
 
       const table = new Table()

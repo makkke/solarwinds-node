@@ -87,8 +87,20 @@ Nodes monitored by SolarWinds. `NODE` can be a **node id** or a **hostname**.
 
   Options:
 
-    -h, --help  output usage information
+    --filter <value>  Filter output based on conditions provided
+    -h, --help        output usage information
 ```
+
+##### Filtering
+
+The filtering flag format is "key=value".
+
+The currently supported filters are:
+
+- id
+- name
+- hostname
+- ip
 
 #### node inspect
 
@@ -251,8 +263,19 @@ Virtual machines accessible by SolarWinds. `VM` can be a vm **id** or a vm **nam
 
   Options:
 
-    -h, --help  output usage information
+    --filter <value>  Filter output based on conditions provided
+    -h, --help        output usage information
 ```
+
+##### Filtering
+
+The filtering flag format is "key=value".
+
+The currently supported filters are:
+
+- id
+- name
+- ip
 
 #### vm inspect
 

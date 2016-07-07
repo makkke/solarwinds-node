@@ -1,4 +1,5 @@
 class ApplicationTemplate {
+  // eslint-disable-next-line max-len
   static props = ['applicationTemplateID', 'name', 'isMockTemplate', 'created', 'lastModified', 'viewID', 'hasImportedView', 'customApplicationType', 'uniqueId', 'displayName', 'description', 'instanceType', 'uri']
 
   constructor(appTemplate) {

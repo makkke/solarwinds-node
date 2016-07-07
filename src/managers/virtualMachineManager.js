@@ -1,6 +1,8 @@
-import VirtualMachine from './models/virtualMachine'
+import is from 'is_js'
 
-class VirtualMachines {
+import VirtualMachine from '../models/virtualMachine'
+
+class VirtualMachineManager {
   props = VirtualMachine.props.join()
   table = 'Orion.VIM.VirtualMachines'
 
@@ -8,22 +10,22 @@ class VirtualMachines {
     this.client = client
   }
 
-  async query(filter) {
+  async query(filter = {}) {
     let vms
-    if (filter) {
+    if (is.not.empty(filter)) {
       if (filter.hasOwnProperty('name')) {
         vms = await this.client.query(this.getQuery('name', filter.name.toLowerCase()))
       } else if (filter.hasOwnProperty('ip')) {
-        vms = await this.client.query(this.getQuery('iPAddress', filter.ip))
+        vms = await this.client.query(this.getQuery('ipaddress', filter.ip))
       } else {
-        vms = await this.client.query(this.getQuery('virtualMachineID', filter.id))
+        vms = await this.client.query(this.getQuery('virtualmachineid', filter.id))
       }
     } else {
       vms = await this.client.query(`
         SELECT ${this.props}
         FROM ${this.table}
         ORDER BY virtualMachineID
-        `)
+      `)
     }
 
     return vms.map(x => new VirtualMachine(x))
@@ -52,8 +54,8 @@ class VirtualMachines {
       FROM ${this.table}
       WHERE ${key} LIKE '%${value}%'
       ORDER BY ${key}
-      `
+    `
   }
 }
 
-export default VirtualMachines
+export default VirtualMachineManager

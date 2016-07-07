@@ -1,8 +1,8 @@
 import is from 'is_js'
 
 import Client from './client'
-import Nodes from './nodes'
-import VirtualMachines from './virtualMachines'
+import NodeManager from './managers/nodeManager'
+import VirtualMachineManager from './managers/virtualMachineManager'
 import ApplicationTemplates from './applicationTemplates'
 import Credentials from './credentials'
 
@@ -29,8 +29,8 @@ class Landscape {
 
     this.client = new Client(username, password, hostname, port)
 
-    this.nodes = new Nodes(this.client)
-    this.virtualMachines = new VirtualMachines(this.client)
+    this.nodes = new NodeManager(this.client)
+    this.virtualMachines = new VirtualMachineManager(this.client)
     this.applicationTemplates = new ApplicationTemplates(this.client)
     this.credentials = new Credentials(this.client)
   }

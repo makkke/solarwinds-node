@@ -9,9 +9,16 @@ export function prettify(json) {
 }
 
 export function print(json) {
-  console.log(prettify(json))
+  console.log(prettify(json)) //eslint-disable-line
 }
 
 export function error(e) {
-  console.error('Error:', e)
+  console.error('Error:', e) //eslint-disable-line
+}
+
+export function parseFilter(filter = '') {
+  const [key, value] = filter.split('=')
+  if (!key || !value) return {}
+
+  return { [key]: value }
 }
