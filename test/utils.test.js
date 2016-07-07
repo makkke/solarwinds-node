@@ -29,8 +29,6 @@ test('parseFilter() should parse filter options into property', t => {
 test('parseFilter() should return an empty object if filter is not parsable', t => {
   const filter = 'nameIsLurtz'
   t.truthy(is.empty(utils.parseFilter(filter)))
-  t.truthy(is.empty(utils.parseFilter('')))
-  t.truthy(is.empty(utils.parseFilter()))
 })
 
 test('parseFilter() should return an empty object if filter is empty', t => {
