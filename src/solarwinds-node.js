@@ -115,3 +115,6 @@ program
   })
 
 program.parse(process.argv)
+
+// console.log(process.argv)
+// console.log(program.args)
