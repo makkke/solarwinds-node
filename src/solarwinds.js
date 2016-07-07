@@ -14,7 +14,7 @@ program
   .command('credential', 'Credentials.')
   .parse(process.argv)
 
-const body = {
+const data = {
   resource: process.argv[2],
   command: process.argv[3],
   options: process.argv.slice(4).join(' '),
@@ -24,9 +24,9 @@ const body = {
 request.post({
   url: 'http://localhost:3000/usages',
   json: true,
-  body,
+  body: data,
 }, (err, httpResponse, body) => {
-  console.log(body)
+  console.log(body) //eslint-disable-line
 })
 
 
