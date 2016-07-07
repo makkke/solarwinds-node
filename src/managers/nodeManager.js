@@ -1,5 +1,6 @@
 import moment from 'moment'
 import parse from 'parse-duration'
+import is from 'is_js'
 
 import Node from '../models/node'
 
@@ -11,17 +12,17 @@ class NodeManager {
     this.client = client
   }
 
-  async query(filter) {
+  async query(filter = {}) {
     let nodes = []
-    if (filter) {
+    if (is.not.empty(filter)) {
       if (filter.hasOwnProperty('name')) {
         nodes = await this.client.query(this.getFilterQuery('caption', filter.name.toLowerCase()))
       } else if (filter.hasOwnProperty('ip')) {
-        nodes = await this.client.query(this.getFilterQuery('iPAddress', filter.ip))
+        nodes = await this.client.query(this.getFilterQuery('ip_address', filter.ip))
       } else if (filter.hasOwnProperty('hostname')) {
         nodes = await this.client.query(this.getFilterQuery('dns', filter.hostname.toLowerCase()))
       } else if (filter.hasOwnProperty('id')) {
-        nodes = await this.client.query(this.getFilterQuery('nodeID', filter.id))
+        nodes = await this.client.query(this.getFilterQuery('nodeid', filter.id))
       }
     } else {
       nodes = await this.client.query(`

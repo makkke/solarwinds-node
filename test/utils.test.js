@@ -1,4 +1,6 @@
 import test from 'ava'
+import is from 'is_js'
+
 import * as utils from '../src/utils'
 
 test('camelize() should convert properties to camelcase', t => {
@@ -24,7 +26,14 @@ test('parseFilter() should parse filter options into property', t => {
   t.is(parsedFilter.name, 'Lurtz')
 })
 
-test('parseFilter() should throw an error if filter is not parsable', t => {
+test('parseFilter() should return an empty object if filter is not parsable', t => {
   const filter = 'nameIsLurtz'
-  t.throws(() => utils.parseFilter(filter))
+  t.truthy(is.empty(utils.parseFilter(filter)))
+  t.truthy(is.empty(utils.parseFilter('')))
+  t.truthy(is.empty(utils.parseFilter()))
+})
+
+test('parseFilter() should return an empty object if filter is empty', t => {
+  t.truthy(is.empty(utils.parseFilter('')))
+  t.truthy(is.empty(utils.parseFilter()))
 })
