@@ -11,7 +11,7 @@
     "dev:cli": "babel src/ --out-dir lib/ && node ./lib/solarwinds.js",
     "build": "babel src/ --out-dir lib/",
     "lint": "eslint .",
-    "test": "lint && snyk test && ava",
+    "test": "npm run lint && snyk test && ava",
     "test:unit": "ava",
     "snyk:monitor": "snyk auth $SNYK_TOKEN && snyk monitor"
   },
