@@ -26,7 +26,7 @@ request.post({
   json: true,
   body,
 }, (err, httpResponse, body) => {
-    console.log(body)
+  console.log(body)
 })
 
 
