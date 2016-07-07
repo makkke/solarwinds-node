@@ -1,4 +1,5 @@
 class Credential {
+  // eslint-disable-next-line max-len
   static props = ['id', 'name', 'description', 'credentialType', 'credentialOwner', 'displayName', 'instanceType', 'uri']
 
   constructor(credential) {

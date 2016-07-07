@@ -34,7 +34,6 @@ program
   .action(async (options) => {
     try {
       const filter = parseFilter(options.filter)
-      console.log(filter)
       const vms = await solarwinds.nodes.query(filter)
 
       const table = new Table()

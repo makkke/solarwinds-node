@@ -1,9 +1,11 @@
 import moment from 'moment'
 import parse from 'parse-duration'
-import Node from './models/node'
 
-class Nodes {
+import Node from '../models/node'
+
+class NodeManager {
   props = Node.props.join()
+  table = 'Orion.Nodes'
 
   constructor(client) {
     this.client = client
@@ -13,26 +15,26 @@ class Nodes {
     let nodes = []
     if (filter) {
       if (filter.hasOwnProperty('name')) {
-        nodes = await this.client.query(this.getQuery('caption', filter.name.toLowerCase()))
+        nodes = await this.client.query(this.getFilterQuery('caption', filter.name.toLowerCase()))
       } else if (filter.hasOwnProperty('ip')) {
-        nodes = await this.client.query(this.getQuery('iPAddress', filter.ip))
+        nodes = await this.client.query(this.getFilterQuery('iPAddress', filter.ip))
       } else if (filter.hasOwnProperty('hostname')) {
-        nodes = await this.client.query(this.getQuery('dns', filter.hostname))
-      } else {
-        nodes = await this.client.query(this.getQuery('nodeID', filter.id))
+        nodes = await this.client.query(this.getFilterQuery('dns', filter.hostname.toLowerCase()))
+      } else if (filter.hasOwnProperty('id')) {
+        nodes = await this.client.query(this.getFilterQuery('nodeID', filter.id))
       }
     } else {
       nodes = await this.client.query(`
         SELECT ${this.props}
-        FROM Orion.Nodes
-        `)
+        FROM ${this.table}
+      `)
     }
 
     return nodes.map(x => new Node(x))
   }
 
   async find(id) {
-    const res = await this.client.read(`Orion/Orion.Nodes/NodeID=${id}`)
+    const res = await this.client.read(`Orion/${this.table}/NodeID=${id}`)
 
     return new Node(res)
   }
@@ -41,7 +43,7 @@ class Nodes {
     const props = Node.props.join()
     const res = await this.client.query(`
       SELECT TOP 1 ${props}
-      FROM Orion.Nodes
+      FROM ${this.table}
       WHERE SysName LIKE '%${name.toLowerCase()}%'
     `)
 
@@ -54,14 +56,14 @@ class Nodes {
     const format = 'MM-DD-YYYY HH:mm:ss A'
     const data = [`N:${id}`, start.format(format), end.format(format), 'false']
 
-    await this.client.invoke('Orion.Nodes/Unmanage', data)
+    await this.client.invoke(`${this.table}/Unmanage`, data)
 
     return this.find(id)
   }
 
   async remanage(id) {
     const data = [`N:${id}`]
-    await this.client.invoke('Orion.Nodes/Remanage', data)
+    await this.client.invoke(`${this.table}/Remanage`, data)
 
     return this.find(id)
   }
@@ -92,23 +94,23 @@ class Nodes {
       IPAddress: node.ip,
     }
 
-    await this.client.create('Orion.Nodes', data)
+    await this.client.create(this.table, data)
 
     return node.name
   }
 
   remove(id) {
-    return this.client.delete(`Orion/Orion.Nodes/NodeID=${id}`)
+    return this.client.delete(`Orion/${this.table}/NodeID=${id}`)
   }
 
-  getQuery(key, value) {
+  getFilterQuery(column, value) {
     return `
       SELECT ${this.props}
-      FROM Orion.Nodes
-      WHERE ${key} LIKE '%${value}%'
-      ORDER BY ${key}
-      `
+      FROM ${this.table}
+      WHERE ${column} LIKE '%${value}%'
+      ORDER BY ${column}
+    `
   }
 }
 
-export default Nodes
+export default NodeManager
