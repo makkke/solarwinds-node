@@ -21,9 +21,6 @@ const body = {
   os: os.type(),
 }
 
-console.log(body)
-
-
 request.post({
   url: 'http://localhost:3000/usages',
   json: true,
