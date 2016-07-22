@@ -6,6 +6,10 @@
 
 The Node.js library and CLI for the Solarwinds API.
 
+## Architecture
+
+<img src="https://c1.staticflickr.com/9/8621/27850938413_acd44e91be_o_d.png" />
+
 ## Configuration
 
 This library/cli uses the following environment variables:
